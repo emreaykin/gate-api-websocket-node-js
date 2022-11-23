@@ -9,20 +9,40 @@
 <body>
     
 
-    <script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script>
+    <script src="./bower_components/crypto-js/crypto-js.js"></script>
 
     <script>
-    const api_key = ''
-    const api_secret = ''
-    function gen_sign(channel,event,timestamp) {
+        const WS_URL = 'wss://api.gateio.ws/ws/v4/';
+        const ws = new WebSocket(WS_URL);
+        const api_key = ''
+        const api_secret = ''
+   
+        function gen_sign(channel,event,timestamp) {
 
-    let s = "channel="+channel+"&"+"event="+event+"&"+"time="+timestamp;
-    let sign =CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, api_secret);
-    sign.update(s);
-    return {'method': 'api_key', 'KEY': api_key, 'SIGN': sign};
+            let s = "channel="+channel+"&"+"event="+event+"&"+"time="+timestamp;
+            let sign =CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA512, api_secret).update(s).finalize();
+            let signHex=CryptoJS.enc.Hex.stringify(sign)
+            return {'method': 'api_key', 'KEY': api_key, 'SIGN': signHex };
+            }
+            var request = {
+            "time":Math.round(new Date().getTime() / 1000),
+            "channel":"spot.balances",
+            "event":"subscribe"
+         }
+            request['auth'] = gen_sign(request['channel'],request['event'],request['time']);
 
-    }
-    console.log(gen_sign("a","b","c"))
+            ws.onopen = function (){
+                console.log("Connected")
+                setInterval(() => {
+                    ws.send(JSON.stringify(request));
+                }, 20000);
+                ws.send(JSON.stringify(request));
+            }
+            
+            ws.onmessage = function (data){
+                console.log(data)
+            }
+         
     </script>
 </body>
 </html>
