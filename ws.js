@@ -3,8 +3,8 @@ var crypto = require('crypto');
 
 const WS_URL = 'wss://api.gateio.ws/ws/v4/';
 const ws = new WebSocket(WS_URL);
-const api_key = 'YOUR API KEY'
-const api_secret = 'YOUR API SECRET'
+const api_key = ''
+const api_secret = ''
 
 
 function gen_sign(channel,event,timestamp) {
