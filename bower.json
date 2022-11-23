@@ -1,0 +1,17 @@
+{
+  "name": "gate-api-websocket-node js",
+  "description": "Gate io rest api ve websocket kullanımı",
+  "main": "",
+  "authors": [
+    "emreaykin <emre.kou.1809@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/emreaykin/gate-api-websocket-node-js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
