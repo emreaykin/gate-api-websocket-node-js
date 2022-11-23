@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "gate-api": "^5.26.0",
+    "moment": "^2.29.4",
+    "pako": "^2.1.0",
+    "querystring": "^0.2.1",
+    "ws": "^8.11.0"
+  }
+}
